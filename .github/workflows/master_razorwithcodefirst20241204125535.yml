@@ -79,7 +79,7 @@ jobs:
           package: ./.net-app/
 
       - name : Azure SQL Deploy
-        uses: azure/sql-action@v3
+        uses: azure/sql-action@v2.3
         with: 
           # connection string
           connection-string: ${{secrets.SQL_CONNECTION_STRING}}
