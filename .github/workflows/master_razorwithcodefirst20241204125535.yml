@@ -83,4 +83,4 @@ jobs:
         with: 
           # connection string
           connection-string: ${{secrets.SQL_CONNECTION_STRING}}
-          path: ./ddl_updates/sql-script.sql
+          path: './ddl_updates/*.sql'
