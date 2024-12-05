@@ -76,10 +76,10 @@ jobs:
         with:
           app-name: 'RazorWithCodeFirst20241204125535'
           slot-name: 'Production'
-          package: ./.net-app
+          package: ./.net-app/
 
       - name : Azure SQL Deploy
-        uses: Azure/sql-action@v3
+        uses: azure/sql-action@v3
         with: 
           # connection string
           connection-string: ${{secrets.SQL_CONNECTION_STRING}}
