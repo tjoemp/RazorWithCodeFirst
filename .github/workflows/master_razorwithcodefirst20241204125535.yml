@@ -43,7 +43,7 @@ jobs:
 
       - name: Generate EF CoreMigtaion Script
         #run: echo "dotnet ef migrations script --idempotent --no-build -- configuration Release --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --context RazorWithCodeFirst/Data/ProjectContext.cs --project ${{github.workspace}}/RazorWithCodeFirst.csproj" 
-        run: dotnet ef migrations script --no-build --idempotent --configuration Release --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --context RazorWithCodeFirst/Data/ProjectContext.cs --project ${{github.workspace}}/RazorWithCodeFirst/RazorWithCodeFirst.csproj
+        run: dotnet ef migrations script --no-build --idempotent --configuration Release --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --context RazorWithCodeFirst/Data/ProjectContext --project ${{github.workspace}}/RazorWithCodeFirst/RazorWithCodeFirst.csproj
 
       - uses: actions/upload-artifact@v4
         with: 
