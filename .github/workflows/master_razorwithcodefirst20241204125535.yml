@@ -81,5 +81,5 @@ jobs:
         uses: Azure/sql-action@v3
         with: 
           # connection string
-          connection-string: ${{secret.SQL_CONNECTION_STRING}}
+          connection-string: ${{secrets.SQL_CONNECTION_STRING}}
           path: ./ddl_updates/sql/sql-script.sql
