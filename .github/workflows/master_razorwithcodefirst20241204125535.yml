@@ -42,7 +42,7 @@ jobs:
             dotnet tool install dotnet-ef
 
       - name: Generate EF CoreMigtaion Script
-        run: dotnet ef migrations scrpt --idempotent --no-build -- configuration Release --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --context RazorWithCodeFirst/Data\ProjectContext.cs --project ${{ github.workspace }}/RazorWithCodeFirst/RazorWithCodeFirst.csproj 
+        run: dotnet ef migrations scrpt --idempotent --no-build -- configuration Release --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --context RazorWithCodeFirst/Data/ProjectContext.cs --project ${{github.workspace}}/RazorWithCodeFirst.csproj 
 
       - uses: actions/upload-artifact@v4
         with: 
