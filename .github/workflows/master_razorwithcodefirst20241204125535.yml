@@ -36,6 +36,19 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+      - name: install EntityFrameworkCore Tools
+        run: 
+            dotnet new tool-manifest
+            dotnet tool install dotnet-ef
+
+      - name: Generate EF CoreMigtaion Script
+        run: dotnet ef migrations scrpt --idempotent --no-build -- configuration Release --output ${{env.DOTNET_ROOT}}/sql/sql-script.sql --context RazorWithCodeFirst/Data\ProjectContext.cs --project ${{ github.workspace }}/RazorWithCodeFirst/RazorWithCodeFirst.csproj 
+
+      - uses: actions/upload-artifact@v4
+        with: 
+          name: ddl-updates
+          path: ${{env.DOTNET_ROOT}}/sql/sql-script.sql
+
   deploy:
     runs-on: windows-latest
     needs: build
@@ -48,8 +61,6 @@ jobs:
     steps:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
-        with:
-          name: .net-app
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -64,5 +75,11 @@ jobs:
         with:
           app-name: 'RazorWithCodeFirst20241204125535'
           slot-name: 'Production'
-          package: .
-          
+          package: ./.net-app
+
+      - name : Azure SQL Deploy
+        uses: Azure/sql-action@v3
+        with: 
+          # connection string
+          connection-string: ${{secret.SQL_CONNECTION_STRING}}
+          path: ./ddl_updates/sql/sql-script.sql
